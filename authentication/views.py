@@ -217,6 +217,16 @@ class ChangePasswordView(generics.UpdateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class AuthUserView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAdminUser,)
+
+    def get(self, request):
+        user = User.objects.get(pk=request.user.pk)
+        serializer = RegisterSerializer(user)
+
+        return response.Response(serializer.data)
+
+
 class UserListView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
