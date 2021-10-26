@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
-    'corsheaders',
     'authentication',
     'personalsettings',
     'social_auth',
@@ -61,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'pinterest.urls'
@@ -88,13 +86,24 @@ WSGI_APPLICATION = 'pinterest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'pinterest',
+        'USER': 'mhdyshah',
+        'PASSWORD': 'mhdy132357',
+        'HOST': 'localhost',
+        'POST': 5432,
+    }
 }
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                 'http://mehdishahsavari.pythonanywhere.com/']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -175,17 +184,3 @@ SWAGGER_SETTINGS = {
         }
     }
 }
-
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:9000",
-]
-
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://\w+\.mhdyshah\.com$",
-]
-
-
-CORS_ALLOW_ALL_ORIGINS = True
